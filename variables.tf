@@ -58,6 +58,14 @@ variable "dev_igw" {
   description = "internet gateway name"
 }
 
+variable "stage_igw" {
+  description = "internet gateway name"
+}
+
+variable "prod_igw" {
+  description = "internet gateway name"
+}
+
 variable "az_1" {
     description = "availability zone 1"
 }
@@ -134,11 +142,11 @@ variable "prod_pri_sub_name" {
   description = "Name for prod pri Subnet-1"
 }
 
-variable "prod_pri_sub_cidr" {
+variable "prod_pri_sub_cidr2" {
   description = "CIDR Block for prod pri Subnet-2"
 }
 
-variable "prod_pri_sub_name" {
+variable "prod_pri_sub_name2" {
   description = "Name for prod pri Subnet-2"
 }
 
@@ -260,5 +268,9 @@ variable "app_name" {
 }
 
 variable "acm_arn" {
+  type = string
+}
+
+variable "tpl_path" {
   type = string
 }
