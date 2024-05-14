@@ -27,15 +27,15 @@ variable "prod_vpc_cidr_block" {
 }
 
 variable "dev_env" {
-    description = "dev env"
+  description = "dev env"
 }
 
 variable "stage_env" {
-    description = "stage env"
+  description = "stage env"
 }
 
 variable "prod_env" {
-    description = "prod env"
+  description = "prod env"
 }
 
 variable "dev_nat_gateway" {

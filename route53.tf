@@ -1,7 +1,3 @@
-data "aws_acm_certificate" "cert" {
-  domain = var.domain
-}
-
 data "aws_route53_zone" "front" {
   name         = var.domain
   private_zone = false
@@ -20,9 +16,9 @@ resource "aws_route53_record" "front" {
 }
 
 resource "aws_route53_record" "cert_validation" {
-  name    = data.aws_acm_certificate.cert.domain_validation_options[0].resource_record_name
-  type    = data.aws_acm_certificate.cert.domain_validation_options[0].resource_record_type
+  name    = tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_name
+  type    = tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_type
   zone_id = data.aws_route53_zone.front.zone_id
-  records = [data.aws_acm_certificate.cert.domain_validation_options[0].resource_record_value]
+  records = [tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_value]
   ttl     = 60
 }
