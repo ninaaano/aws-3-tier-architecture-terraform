@@ -258,3 +258,7 @@ variable "bucket_name" {
 variable "app_name" {
   type = string
 }
+
+variable "acm_arn" {
+  type = string
+}
