@@ -66,12 +66,6 @@ variable "az_2" {
     description = "availability zone 2"
 }
 
-
-# 이거 어떻게 하지?
-variable "image-id" {
-    description = "ami image id"
-}
-
 variable "key-name" {
   description = "key pair"
 }
@@ -148,6 +142,7 @@ variable "prod_pri_sub_name" {
   description = "Name for prod pri Subnet-2"
 }
 
+# 이거 수정
 variable "public-rt-name" {
   description = "Name for Public Route table"
 }
@@ -160,63 +155,79 @@ variable "private-rt-name-2" {
   description = "Name for Private Route table"
 }
 
-variable "launch-template-web-name" {
-  description = "web launch template"
+variable "stage_alb_name" {
+  description = "alb for the stage"
 }
 
-variable "alb-web-name" {
-  description = "alb for the Web Tier"
-}
-
-variable "alb-sg-web-name" {
+variable "stage_alb_sg_name" {
   description = "alb security group 1"
 }
 
-variable "asg-web-name" {
-  description = "asg in Web Tier"
+variable "stage_asg_name" {
+  description = "asg in stage"
 }
 
-variable "asg-sg-web-name" {
+variable "stage_asg_sg_name" {
   description = "asg security group 1 name"
 }
 
-variable "tg-web-name" {
+variable "stage_tg_name" {
   description = "target group for web"
 }
 
-variable "launch-template-app-name" {
-  description = "app launch template"
+variable "prod_alb_name" {
+  description = "Name the Load Balancer for the prod"
 }
 
-variable "alb-app-name" {
-  description = "Name the Load Balancer for the App Tier"
-}
-
-variable "alb-sg-app-name" {
+variable "prod_alb_sg_name" {
   description = "Name for alb security group 1"
 }
 
-variable "asg-app-name" {
-  description = "Name the Auto Scaling group in app Tier"
+variable "prod_asg_name" {
+  description = "Name the Auto Scaling group in prod"
 }
 
-variable "asg-sg-app-name" {
+variable "prod_asg_sg_name" {
   description = "Name for asg security group 1"
 }
 
-variable "tg-app-name" {
-  description = "Name for Target group app"
+variable "prod_tg_name" {
+  description = "Name for Target group prod"
 }
 
-variable "db-username" {
+variable "dev_db_username" {
   description = "Username for db instance"
 }
 
-variable "db-password" {
+variable "dev_db_password" {
   description = "Password for db instance"
 }
 
-variable "db-name" {
+variable "dev_db_name" {
+  description = "Name for Database"
+}
+
+variable "stage_db_username" {
+  description = "Username for db instance"
+}
+
+variable "stage_db_password" {
+  description = "Password for db instance"
+}
+
+variable "stage_db_name" {
+  description = "Name for Database"
+}
+
+variable "prod_db_username" {
+  description = "Username for db instance"
+}
+
+variable "prod_db_password" {
+  description = "Password for db instance"
+}
+
+variable "prod_db_name" {
   description = "Name for Database"
 }
 
@@ -224,10 +235,26 @@ variable "instance-type-db" {
   description = "db instance type"
 }
 
-variable "db-sg-name" {
+variable "dev_db_sg_name" {
   description = "Name for DB Security group"
 }
 
-variable "db-subnet-grp-name" {
-  description = "Name for DB Subnet Group"
+variable "stage_db_sg_name" {
+  description = "Name for DB Security group"
+}
+
+variable "prod_db_sg_name" {
+  description = "Name for DB Security group"
+}
+
+variable "domain" {
+  type = string
+}
+
+variable "bucket_name" {
+  type = string
+}
+
+variable "app_name" {
+  type = string
 }
