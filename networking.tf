@@ -94,7 +94,7 @@ resource "aws_nat_gateway" "prod-nat-gateway2" {
 
 #public route table# - DEV
 
-resource "aws_route_table" "prod-public-rt" {
+resource "aws_route_table" "dev-public-rt" {
   vpc_id = aws_vpc.dev-vpc.id
 
   route {
