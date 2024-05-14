@@ -62,12 +62,12 @@ resource "aws_ecs_service" "staging" {
 
   network_configuration {
     security_groups  = [aws_security_group.stage-asg-security-group.id]
-    subnets          = [aws_subnet.prod-pri-sub, aws_subnet.prod-pri-sub2]
+    subnets          = [aws_subnet.prod-pri-sub.id, aws_subnet.prod-pri-sub2.id]
     assign_public_ip = true
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.prod-target_group.arn
+    target_group_arn = aws_lb_target_group.prod-target-group.arn
     container_name   = var.app_name
     container_port   = 80
   }

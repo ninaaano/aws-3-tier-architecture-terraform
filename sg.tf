@@ -117,12 +117,12 @@ resource "aws_security_group" "prod-asg-security-group" {
     security_groups = [aws_security_group.prod-alb-sg.id]
   }
 
-    ingress {
+  ingress {
     description = "SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    security_groups = [aws_security_group.prod-asg-security-group.id]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
