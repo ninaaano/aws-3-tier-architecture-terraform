@@ -192,14 +192,9 @@ resource "aws_route_table" "prod-public-rt" {
     Name = "prod-public-rt-name"
   }
 }
-resource "aws_route_table_association" "prod-public-rt-association1" {
-  subnet_id      = aws_subnet.prod-nat-gateway.id
-  route_table_id = aws_route_table.prod-public-rt.id
-}
-
-
-resource "aws_route_table_association" "prod-public-rt-association2" {
-  subnet_id      = aws_subnet.prod-nat-gateway2.id
+resource "aws_route_table_association" "prod-public-rt-association" {
+  count          = length(aws_subnet.prod-nat-gateway.*.id)
+  subnet_id      = aws_subnet.prod-nat-gateway[count.index].id
   route_table_id = aws_route_table.prod-public-rt.id
 }
 
