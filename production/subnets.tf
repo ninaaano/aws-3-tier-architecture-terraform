@@ -41,3 +41,15 @@ resource "aws_subnet" "prod-pri-sub2" {
     Name = var.prod_pri_sub_name2
   }
 }
+
+resource "aws_db_subnet_group" "prod-db-subnet-group" {
+  name = "prod-db-subnet-group"
+  subnet_ids = [
+    aws_subnet.prod-pri-sub.id, aws_subnet.prod-pri-sub2.id
+  ]
+
+  tags = {
+    Name = "prod db subnet group"
+  }
+  
+}

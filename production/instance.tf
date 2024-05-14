@@ -12,4 +12,7 @@ resource "aws_db_instance" "prod-database" {
   skip_final_snapshot  = true
   multi_az = true
   vpc_security_group_ids = [aws_security_group.prod-db-sg.id]
+
+  db_subnet_group_name = aws_db_subnet_group.prod-db-subnet-group.name
+
 }
