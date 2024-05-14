@@ -3,15 +3,15 @@ variable "region" {
 }
 
 variable "dev_vpc" {
-    description = "dev vpc"
+  description = "dev vpc"
 }
 
 variable "stage_vpc" {
-    description = "stage vpc"
+  description = "stage vpc"
 }
 
 variable "prod_vpc" {
-    description = "prod vpc"
+  description = "prod vpc"
 }
 
 variable "dev_vpc_cidr_block" {
@@ -67,11 +67,11 @@ variable "prod_igw" {
 }
 
 variable "az_1" {
-    description = "availability zone 1"
+  description = "availability zone 1"
 }
 
 variable "az_2" {
-    description = "availability zone 2"
+  description = "availability zone 2"
 }
 
 variable "key-name" {
