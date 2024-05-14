@@ -144,10 +144,10 @@ resource "aws_security_group" "dev-db-sg" {
   description = "DataBase Security Group"
   vpc_id      = aws_vpc.dev-vpc.id
   ingress {
-
     from_port   = 3306
     to_port     = 3306
-    protocol    = "tcp"    
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]    
   }
 
   egress {
@@ -171,8 +171,7 @@ resource "aws_security_group" "stage-db-sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    security_groups = [aws_security_group.stage-asg-security-group.id]
-    
+    cidr_blocks = ["10.10.0.0/16"]    
   }
 
   egress {
@@ -196,8 +195,7 @@ resource "aws_security_group" "prod-db-sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    security_groups = [aws_security_group.prod-asg-security-group.id]
-    
+    cidr_blocks = ["10.20.0.0/16"]
   }
 
   egress {

@@ -4,7 +4,7 @@ resource "aws_internet_gateway" "dev-igw" {
   vpc_id = aws_vpc.dev-vpc.id
   tags = {
     Name = var.dev_igw
-    Environment = var.dev_env
+    Environment = "dev"
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_internet_gateway" "stage-igw" {
   vpc_id = aws_vpc.stage-vpc.id
   tags = {
     Name = var.stage_igw
-    Environment = var.stage_env
+    Environment = "stage"
   }
 }
 
@@ -20,7 +20,7 @@ resource "aws_internet_gateway" "prod-igw" {
   vpc_id = aws_vpc.prod-vpc.id
   tags = {
     Name = var.prod_igw
-    Environment = var.prod_env
+    Environment = "prod"
   }
 }
 

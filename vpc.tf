@@ -5,7 +5,7 @@ resource "aws_vpc" "dev-vpc" {
 
   tags = {
     Name = var.dev_vpc
-    Environment = var.dev_env
+    Environment = "dev"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_vpc" "stage-vpc" {
 
   tags = {
     Name = var.stage_vpc
-    Environment = var.stage_env
+    Environment = "stage"
   }
 }
 
@@ -23,6 +23,6 @@ resource "aws_vpc" "prod-vpc" {
 
   tags = {
     Name = var.prod_vpc
-    Environment = var.prod_env
+    Environment = "prod"
   }
 }

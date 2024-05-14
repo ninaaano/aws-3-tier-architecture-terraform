@@ -26,18 +26,6 @@ variable "prod_vpc_cidr_block" {
   description = "prod vpc cidr block"
 }
 
-variable "dev_env" {
-  description = "dev"
-}
-
-variable "stage_env" {
-  description = "stage"
-}
-
-variable "prod_env" {
-  description = "prod"
-}
-
 variable "dev_nat_gateway" {
   description = "dev NAT Gateway name"
 }
@@ -92,6 +80,14 @@ variable "stage_nat_sub_cidr" {
 
 variable "stage_nat_sub_name" {
   description = "Name for stage nat-tier Subnet"
+}
+
+variable "stage_nat_sub_cidr2" {
+  description = "CIDR Block for stage nat-tier Subnet-2"
+}
+
+variable "stage_nat_sub_name2" {
+  description = "Name for stage nat-tier Subnet-2"
 }
 
 variable "prod_nat_sub_cidr" {
