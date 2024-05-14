@@ -106,7 +106,7 @@ resource "aws_route_table" "dev-public-rt" {
   }
 }
 resource "aws_route_table_association" "dev-public-rt-association" {
-  subnet_id      = aws_subnet.dev-nat-gateway.id
+  subnet_id      = aws_subnet.dev-nat-sub.id
   route_table_id = aws_route_table.dev-public-rt.id
 }
 
@@ -127,7 +127,7 @@ resource "aws_route_table" "dev-private-rt" {
 
 resource "aws_route_table_association" "dev-private-rt-association" {
   subnet_id      = aws_subnet.dev-pri-sub.id
-  route_table_id = aws_route_table.dev-private-rt-az-1.id
+  route_table_id = aws_route_table.dev-private-rt.id
 }
 
 #public route table# - STAGE
@@ -144,13 +144,7 @@ resource "aws_route_table" "stage-public-rt" {
   }
 }
 resource "aws_route_table_association" "stage-public-rt-association1" {
-  subnet_id      = aws_subnet.stage-nat-gateway.id
-  route_table_id = aws_route_table.stage-public-rt.id
-}
-
-
-resource "aws_route_table_association" "stage-public-rt-association2" {
-  subnet_id      = aws_subnet.stage-nat-gateway2.id
+  subnet_id      = aws_subnet.stage-nat-sub.id
   route_table_id = aws_route_table.stage-public-rt.id
 }
 
@@ -193,8 +187,12 @@ resource "aws_route_table" "prod-public-rt" {
   }
 }
 resource "aws_route_table_association" "prod-public-rt-association" {
-  count          = length(aws_subnet.prod-nat-gateway.*.id)
-  subnet_id      = aws_subnet.prod-nat-gateway[count.index].id
+  subnet_id      = aws_subnet.prod-nat-sub.id
+  route_table_id = aws_route_table.prod-public-rt.id
+}
+
+resource "aws_route_table_association" "prod-public-rt-association2" {
+  subnet_id      = aws_subnet.prod-nat-sub2.id
   route_table_id = aws_route_table.prod-public-rt.id
 }
 
