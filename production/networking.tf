@@ -2,22 +2,24 @@
 
 resource "aws_internet_gateway" "prod-igw" {
   vpc_id = aws_vpc.prod-vpc.id
+
   tags = {
-    Name = var.prod_igw
-    Environment = "prod"
+    Name   = var.basic_name + var.prod_igw
+    Env    = var.env
+    Author = var.author
   }
 }
 
 ###elastic IP address###
 
 resource "aws_eip" "prod-eip-address" {
-    domain     = "vpc"
-    
+  domain = "vpc"
+
 }
 
 resource "aws_eip" "prod-eip-address2" {
-    domain     = "vpc"
-    
+  domain = "vpc"
+
 }
 
 #create NGW#
@@ -27,7 +29,9 @@ resource "aws_nat_gateway" "prod-nat-gateway" {
   subnet_id     = aws_subnet.prod-nat-sub.id
 
   tags = {
-    Name = var.prod_nat_gateway
+    Name   = var.basic_name + var.prod_nat_gateway
+    Env    = var.env
+    Author = var.author
   }
 
   depends_on = [aws_internet_gateway.prod-igw]
@@ -38,8 +42,11 @@ resource "aws_nat_gateway" "prod-nat-gateway2" {
   subnet_id     = aws_subnet.prod-nat-sub2.id
 
   tags = {
-    Name = var.prod_nat_gateway_2
+    Name   = var.basic_name + var.prod_nat_gateway_2
+    Env    = var.env
+    Author = var.author
   }
+
 
   depends_on = [aws_internet_gateway.prod-igw]
 }
@@ -54,8 +61,12 @@ resource "aws_route_table" "prod-public-rt" {
     gateway_id = aws_internet_gateway.prod-igw.id
   }
   tags = {
-    Name = "prod-public-rt-name"
+    Name   = var.basic_name + var.public-rt-name
+    Env    = var.env
+    Author = var.author
   }
+
+
 }
 resource "aws_route_table_association" "prod-public-rt-association" {
   subnet_id      = aws_subnet.prod-nat-sub.id
@@ -77,8 +88,10 @@ resource "aws_route_table" "prod-private-rt-az-1" {
     gateway_id = aws_nat_gateway.prod-nat-gateway.id
   }
 
-   tags = {
-    Name = var.private-rt-name-1
+  tags = {
+    Name   = var.basic_name + var.private-rt-name-1
+    Env    = var.env
+    Author = var.author
   }
 }
 
@@ -90,8 +103,10 @@ resource "aws_route_table" "prod-private-rt-az-2" {
     gateway_id = aws_nat_gateway.prod-nat-gateway2.id
   }
 
-   tags = {
-    Name = var.private-rt-name-2
+  tags = {
+    Name   = var.basic_name + var.private-rt-name-2
+    Env    = var.env
+    Author = var.author
   }
 }
 

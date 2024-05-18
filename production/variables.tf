@@ -30,10 +30,6 @@ variable "az_2" {
   description = "availability zone 2"
 }
 
-variable "key-name" {
-  description = "key pair"
-}
-
 variable "prod_nat_sub_cidr" {
   description = "CIDR Block for prod nat-tier Subnet-1"
 }
@@ -138,3 +134,19 @@ variable "acm_arn" {
 variable "tpl_path" {
   type = string
 }
+
+variable "basic_name" {
+  description = "Basic name for resources"
+  type        = string
+}
+
+variable "env" {
+  description = "Environment for resources"
+  type        = string
+}
+
+variable "author" {
+  description = "Author identifier"
+  type        = string
+}
+

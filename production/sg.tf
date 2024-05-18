@@ -9,10 +9,10 @@ resource "aws_security_group" "prod-alb-sg" {
     description = "http from internet"
     from_port   = 80
     to_port     = 80
-    protocol    = "tcp"    
+    protocol    = "tcp"
   }
 
-    ingress {
+  ingress {
     description = "http from internet"
     from_port   = 443
     to_port     = 443
@@ -28,7 +28,9 @@ resource "aws_security_group" "prod-alb-sg" {
   }
 
   tags = {
-    Name = var.prod_alb_sg_name
+    Name   = var.basic_name + var.prod_alb_sg_name
+    Env    = var.env
+    Author = var.author
   }
 }
 
@@ -40,19 +42,11 @@ resource "aws_security_group" "prod-asg-security-group" {
   vpc_id      = aws_vpc.prod-vpc.id
 
   ingress {
-    description = "HTTP from alb"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    description     = "HTTP from alb"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
     security_groups = [aws_security_group.prod-alb-sg.id]
-  }
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -63,7 +57,9 @@ resource "aws_security_group" "prod-asg-security-group" {
   }
 
   tags = {
-    Name = var.prod_asg_sg_name
+    Name   = var.basic_name + var.prod_asg_sg_name
+    Env    = var.env
+    Author = var.author
   }
 }
 
@@ -89,6 +85,8 @@ resource "aws_security_group" "prod-db-sg" {
   }
 
   tags = {
-    Name = var.prod_db_sg_name
+    Name   = var.basic_name + var.prod_db_sg_name
+    Env    = var.env
+    Author = var.author
   }
 }
