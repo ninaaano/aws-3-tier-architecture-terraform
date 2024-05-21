@@ -150,21 +150,20 @@ variable "author" {
   type        = string
 }
 
-variable "key_name" {
-  description = "key pair"
-}
-
-
 ########################################################################################################################
 ## EC2 Computing variables
 ########################################################################################################################
-variable "public_ec2_key" {
-  description = "Public key for SSH access to EC2 instances"
-  type        = string
-}
-
 variable "instance_type" {
   description = "Instance type for EC2"
   default     = "t3.micro"
   type        = string
+}
+
+# EC2 Bastion Host variables
+variable "ec2-bastion-public-key-path" {
+  type = string
+}
+
+variable "ec2-bastion-private-key-path" {
+  type = string
 }
