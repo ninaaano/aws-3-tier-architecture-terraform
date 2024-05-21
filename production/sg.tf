@@ -28,7 +28,7 @@ resource "aws_security_group" "prod-alb-sg" {
   }
 
   tags = {
-    Name   = var.basic_name + var.prod_alb_sg_name
+    Name   = "${var.basic_name}${var.prod_alb_sg_name}"
     Env    = var.env
     Author = var.author
   }
@@ -57,7 +57,7 @@ resource "aws_security_group" "prod-asg-security-group" {
   }
 
   tags = {
-    Name   = var.basic_name + var.prod_asg_sg_name
+    Name   = "${var.basic_name}${var.prod_asg_sg_name}"
     Env    = var.env
     Author = var.author
   }
@@ -85,7 +85,7 @@ resource "aws_security_group" "prod-db-sg" {
   }
 
   tags = {
-    Name   = var.basic_name + var.prod_db_sg_name
+    Name   = "${var.basic_name}${var.prod_db_sg_name}"
     Env    = var.env
     Author = var.author
   }

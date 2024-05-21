@@ -8,7 +8,7 @@ resource "aws_lb" "prod-alb" {
   subnets            = [aws_subnet.prod-nat-sub.id, aws_subnet.prod-nat-sub2.id]
 
   tags = {
-    Name   = var.basic_name + var.prod_alb_name
+    Name   = "${var.basic_name}${var.prod_alb_name}"
     Env    = var.env
     Author = var.author
   }
@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "prod-target-group" {
   }
 
   tags = {
-    Name   = var.basic_name + var.prod_tg_name
+    Name   = "${var.basic_name}${var.prod_tg_name}"
     Env    = var.env
     Author = var.author
   }

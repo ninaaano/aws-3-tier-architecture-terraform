@@ -4,7 +4,7 @@ resource "aws_internet_gateway" "prod-igw" {
   vpc_id = aws_vpc.prod-vpc.id
 
   tags = {
-    Name   = var.basic_name + var.prod_igw
+    Name   = "${var.basic_name}${var.prod_igw}"
     Env    = var.env
     Author = var.author
   }
@@ -29,7 +29,7 @@ resource "aws_nat_gateway" "prod-nat-gateway" {
   subnet_id     = aws_subnet.prod-nat-sub.id
 
   tags = {
-    Name   = var.basic_name + var.prod_nat_gateway
+    Name   = "${var.basic_name}${var.prod_nat_gateway}"
     Env    = var.env
     Author = var.author
   }
@@ -42,7 +42,7 @@ resource "aws_nat_gateway" "prod-nat-gateway2" {
   subnet_id     = aws_subnet.prod-nat-sub2.id
 
   tags = {
-    Name   = var.basic_name + var.prod_nat_gateway_2
+    Name   = "${var.basic_name}${var.prod_nat_gateway_2}"
     Env    = var.env
     Author = var.author
   }
@@ -61,7 +61,7 @@ resource "aws_route_table" "prod-public-rt" {
     gateway_id = aws_internet_gateway.prod-igw.id
   }
   tags = {
-    Name   = var.basic_name + var.public-rt-name
+    Name   = "${var.basic_name}${var.public-rt-name}"
     Env    = var.env
     Author = var.author
   }
@@ -89,7 +89,7 @@ resource "aws_route_table" "prod-private-rt-az-1" {
   }
 
   tags = {
-    Name   = var.basic_name + var.private-rt-name-1
+    Name   = "${var.basic_name}${var.private-rt-name-1}"
     Env    = var.env
     Author = var.author
   }
@@ -104,7 +104,7 @@ resource "aws_route_table" "prod-private-rt-az-2" {
   }
 
   tags = {
-    Name   = var.basic_name + var.private-rt-name-2
+    Name   = "${var.basic_name}${var.private-rt-name-2}"
     Env    = var.env
     Author = var.author
   }

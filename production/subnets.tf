@@ -6,7 +6,7 @@ resource "aws_subnet" "prod-nat-sub" {
   availability_zone       = var.az_1
 
   tags = {
-    Name   = var.basic_name + var.prod_nat_sub_name
+    Name   = "${var.basic_name}${var.prod_nat_sub_name}"
     Env    = var.env
     Author = var.author
   }
@@ -19,7 +19,7 @@ resource "aws_subnet" "prod-nat-sub2" {
   availability_zone       = var.az_2
 
   tags = {
-    Name   = var.basic_name + var.prod_nat_sub_name2
+    Name   = "${var.basic_name}${var.prod_nat_sub_name2}"
     Env    = var.env
     Author = var.author
   }
@@ -32,7 +32,7 @@ resource "aws_subnet" "prod-pri-sub" {
   availability_zone = var.az_1
 
   tags = {
-    Name   = var.basic_name + var.prod_pri_sub_name
+    Name   = "${var.basic_name}${var.prod_pri_sub_name}"
     Env    = var.env
     Author = var.author
   }
@@ -44,7 +44,7 @@ resource "aws_subnet" "prod-pri-sub2" {
   availability_zone = var.az_2
 
   tags = {
-    Name   = var.basic_name + var.prod_pri_sub_name2
+    Name   = "${var.basic_name}${var.prod_pri_sub_name2}"
     Env    = var.env
     Author = var.author
   }
@@ -57,7 +57,7 @@ resource "aws_db_subnet_group" "prod-db-subnet-group" {
   ]
 
   tags = {
-    Name   = var.basic_name + var.prod_db_sg_name
+    Name   = "${var.basic_name}${var.prod_db_sg_name}"
     Env    = var.env
     Author = var.author
   }
