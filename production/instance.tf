@@ -16,7 +16,7 @@ resource "aws_db_instance" "prod-database" {
   db_subnet_group_name = aws_db_subnet_group.prod-db-subnet-group.name
 
   tags = {
-    Name   = var.basic_name + "prod-rds"
+    Name   = var.basic_name + var.prod_db_name
     Env    = var.env
     Author = var.author
   }

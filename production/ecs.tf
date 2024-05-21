@@ -44,7 +44,7 @@ resource "aws_ecs_task_definition" "service" {
   requires_compatibilities = ["FARGATE"]
   container_definitions    = data.template_file.service.rendered
   tags = {
-    Name   = var.basic_name + "prod-ecs-task-def"
+    Name   = "${var.basic_name}prod-ecs-def"
     Env    = var.env
     Author = var.author
   }
@@ -76,7 +76,7 @@ resource "aws_ecs_service" "staging" {
   depends_on = [aws_lb_listener.prod_alb_listener, aws_iam_role_policy_attachment.ecs_task_execution_role]
 
   tags = {
-    Name   = var.basic_name + "prod-ecs-service"
+    Name   = "${var.basic_name}prod-ecs-service"
     Env    = var.env
     Author = var.author
   }
