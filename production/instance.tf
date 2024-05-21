@@ -1,6 +1,7 @@
 #database instance#
 
 resource "aws_db_instance" "prod-database" {
+  identifier             = "prod-db"
   allocated_storage      = 10
   db_name                = var.prod_db_name
   engine                 = "mysql"
@@ -16,7 +17,7 @@ resource "aws_db_instance" "prod-database" {
   db_subnet_group_name = aws_db_subnet_group.prod-db-subnet-group.name
 
   tags = {
-    Name   = "${var.basic_name}${var.prod_db_name}"
+    Name   = "${var.basic_name}prod-db"
     Env    = var.env
     Author = var.author
   }

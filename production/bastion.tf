@@ -24,43 +24,43 @@ resource "aws_security_group" "ec2-bastion-sg" {
   }
 
   tags = {
-    Name   = "${var.basic_name}-prod-sg-bastionhost"
+    Name   = "${var.basic_name}prod-sg-bastionhost"
     Env    = "${var.env}"
     Author = "${var.author}"
   }
 }
 
 resource "aws_instance" "ec2-bastion-host" {
-    ami = data.aws_ami.amazon_linux_2
-    instance_type = "t3.micro"
-    key_name = aws_key_pair.ec2-bastion-host-key-pair.key_name
-    vpc_security_group_ids = [ aws_security_group.ec2-bastion-sg.id ]
-    subnet_id = aws_subnet.prod-nat-sub.id
-    associate_public_ip_address = false
-    root_block_device {
-      volume_size = 8
-      delete_on_termination = true
-      volume_type = "gp2"
-      encrypted = true
-      tags = {
-        Name = "${var.basic_name}-prod-ec2-bastion-host-root-volume"
-        Env = "${var.env}"
-        Author = "${var.author}"
-      }
-    }
-    credit_specification {
-      cpu_credits = "standard"
-    }
+  ami                         = data.aws_ami.amazon_linux_2.id
+  instance_type               = "t3.micro"
+  key_name                    = aws_key_pair.ec2-bastion-host-key-pair.key_name
+  vpc_security_group_ids      = [aws_security_group.ec2-bastion-sg.id]
+  subnet_id                   = aws_subnet.prod-nat-sub.id
+  associate_public_ip_address = false
+  root_block_device {
+    volume_size           = 30
+    delete_on_termination = true
+    volume_type           = "gp2"
+    encrypted             = true
     tags = {
-        Name = "${var.basic_name}-prod-ec2-bastion-host"
-        Env = "${var.env}"
-        Author = "${var.author}"
+      Name   = "${var.basic_name}prod-ec2-bastion-host-root-volume"
+      Env    = "${var.env}"
+      Author = "${var.author}"
     }
-    lifecycle {
-      ignore_changes = [ 
-        associate_public_ip_address,
-       ]
-    }
+  }
+  credit_specification {
+    cpu_credits = "standard"
+  }
+  tags = {
+    Name   = "${var.basic_name}prod-ec2-bastion-host"
+    Env    = "${var.env}"
+    Author = "${var.author}"
+  }
+  lifecycle {
+    ignore_changes = [
+      associate_public_ip_address,
+    ]
+  }
 }
 
 data "aws_ami" "amazon_linux_2" {
