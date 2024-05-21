@@ -11,3 +11,10 @@ terraform apply
 ```
 terraform destroy
 ```
+
+## ssh key
+
+Generate SSH Key Pair:
+```
+ssh-keygen -t rsa -C "you.email@example.com" -b 4096
+```
