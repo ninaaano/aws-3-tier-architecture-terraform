@@ -23,7 +23,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
 }
 
 
-data "template_file" "service" {
+data "template_file" "prod-ecs-template" {
   template = file(var.tpl_path)
   vars = {
     region             = var.region
@@ -35,14 +35,14 @@ data "template_file" "service" {
   }
 }
 
-resource "aws_ecs_task_definition" "service" {
+resource "aws_ecs_task_definition" "prod-ecs-task-def" {
   family                   = "service-staging"
   network_mode             = "awsvpc"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   cpu                      = 256
   memory                   = 512
   requires_compatibilities = ["FARGATE"]
-  container_definitions    = data.template_file.service.rendered
+  container_definitions    = data.template_file.prod-ecs-template.rendered
   tags = {
     Name   = "${var.basic_name}prod-ecs-def"
     Env    = var.env
@@ -50,14 +50,14 @@ resource "aws_ecs_task_definition" "service" {
   }
 }
 
-resource "aws_ecs_cluster" "staging" {
-  name = "service-ecs-cluster"
+resource "aws_ecs_cluster" "prod-ecs-cluster" {
+  name = "prod-ecs-cluster"
 }
 
-resource "aws_ecs_service" "staging" {
-  name            = "staging"
-  cluster         = aws_ecs_cluster.staging.id
-  task_definition = aws_ecs_task_definition.service.arn
+resource "aws_ecs_service" "prod-ecs-service" {
+  name            = "prod-ecs-service"
+  cluster         = aws_ecs_cluster.prod-ecs-cluster.id
+  task_definition = aws_ecs_task_definition.prod-ecs-task-def.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 

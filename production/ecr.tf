@@ -1,9 +1,9 @@
 resource "aws_ecr_repository" "repo" {
-  name = "ninaaano/service"
+  name = "prod-ecr-repo"
 }
 
 
-resource "aws_ecr_lifecycle_policy" "repo-policy" {
+resource "aws_ecr_lifecycle_policy" "prod-ecr-repo-policy" {
   repository = aws_ecr_repository.repo.name
 
   policy = <<EOF

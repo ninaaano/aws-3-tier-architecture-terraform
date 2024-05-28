@@ -62,16 +62,19 @@ variable "prod_pri_sub_name2" {
   description = "Name for prod pri Subnet-2"
 }
 
-# 이거 수정
-variable "public-rt-name" {
+variable "prod_public_rt_name" {
   description = "Name for Public Route table"
 }
 
-variable "private-rt-name-1" {
+variable "prod_public_rt_name2" {
+  description = "Name for Public Route table"
+}
+
+variable "prod_private_rt_name" {
   description = "Name for Private Route table"
 }
 
-variable "private-rt-name-2" {
+variable "prod_private_rt_name2" {
   description = "Name for Private Route table"
 }
 
