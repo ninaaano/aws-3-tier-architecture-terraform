@@ -62,6 +62,22 @@ variable "prod_pri_sub_name2" {
   description = "Name for prod pri Subnet-2"
 }
 
+variable "prod_db_sub_cidr" {
+  description = "CIDR Block for prod db Subnet"
+}
+
+variable "prod_db_sub_name" {
+  description = "Name for prod pri Subnet"
+}
+
+variable "prod_db_sub_cidr2" {
+  description = "CIDR Block for prod db Subnet-2"
+}
+
+variable "prod_db_sub_name2" {
+  description = "Name for prod db Subnet2"
+}
+
 variable "prod_public_rt_name" {
   description = "Name for Public Route table"
 }

@@ -133,3 +133,13 @@ resource "aws_route_table_association" "prod-private-rt-association2" {
   subnet_id      = aws_subnet.prod-pri-sub2.id
   route_table_id = aws_route_table.prod-private-rt-az-2.id
 }
+
+resource "aws_route_table_association" "prod-db-rt-association1" {
+  subnet_id      = aws_subnet.prod-db-sub.id
+  route_table_id = aws_route_table.prod-private-rt-az-1.id
+}
+
+resource "aws_route_table_association" "prod-db-rt-association2" {
+  subnet_id      = aws_subnet.prod-db-sub2.id
+  route_table_id = aws_route_table.prod-private-rt-az-2.id
+}
