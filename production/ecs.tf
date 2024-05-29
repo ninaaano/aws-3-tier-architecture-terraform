@@ -36,11 +36,11 @@ data "template_file" "prod-ecs-template" {
 }
 
 resource "aws_ecs_task_definition" "prod-ecs-task-def" {
-  family                   = "service-staging"
+  family                   = "web-app"
   network_mode             = "awsvpc"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  cpu                      = 256
-  memory                   = 512
+  cpu                      = 1024
+  memory                   = 3072
   requires_compatibilities = ["FARGATE"]
   container_definitions    = data.template_file.prod-ecs-template.rendered
   tags = {
