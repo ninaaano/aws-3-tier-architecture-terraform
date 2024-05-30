@@ -45,54 +45,35 @@ resource "aws_iam_role_policy_attachment" "CloudWatchReadOnlyAccess" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonAPIGatewayPushToCloudWatchLogs" {
-  role = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
-}
-
-
-# data "template_file" "prod-ecs-template" {
-#   template = file(var.tpl_path)
-#   vars = {
-#     region             = var.region
-#     aws_ecr_repository = aws_ecr_repository.repo.repository_url
-#     tag                = "latest"
-#     container_port     = 80
-#     host_port          = 80
-#     app_name           = var.app_name
-#   }
-# }
 
 resource "aws_ecs_task_definition" "prod-ecs-task-def" {
-  family                   = "service"
+  family                   = "proddef"
   network_mode             = "awsvpc"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   cpu                      = 1024
   memory                   = 3072
   requires_compatibilities = ["FARGATE"]
-  # container_definitions    = data.template_file.prod-ecs-template.rendered
   container_definitions = jsonencode([
       {
-      "name": "service",
-      "image": "ECR-URL",  
-
-      "cpu": 256,
-      "memory": 512,
+      "name": "prod-ecr-repo",
+      "image": "992382638511.dkr.ecr.ap-northeast-2.amazonaws.com/prod-ecr-repo",  
       "essential": true,
       "portMappings": [
         {
-          "name": "serivce-80-tcp",
+          "name": "prod-80-tcp",
           "containerPort": 80,
           "hostPort": 80,
+          "protocol": "tcp",
           "appProtocol": "http"
         }
       ],
       "logconfiguration" : {
           "logdriver" : "awslogs",
           "options"    : {
-            "awslogs-group"         : "/ecs/prod-ecs-task",
-            "awslogs-region"        : "ap-northeast-2",
-            "awslogs-stream-prefix" : "ecs-service",
+            "awslogs-create-group": "true",
+            "awslogs-group": "/ecs/prod-ecs-def",
+            "awslogs-region": "ap-northeast-2",
+            "awslogs-stream-prefix": "ecs"
         }
       } 
     }
@@ -117,13 +98,13 @@ resource "aws_ecs_service" "prod-ecs-service" {
   name            = "prod-ecs-service"
   cluster         = aws_ecs_cluster.prod-ecs-cluster.id
   task_definition = aws_ecs_task_definition.prod-ecs-task-def.arn
-  desired_count   = 1
+  desired_count   = 2
   launch_type     = "FARGATE"
 
   network_configuration {
-    security_groups  = [aws_security_group.prod-ecs-tasks.id]
+    security_groups  = [aws_security_group.prod-asg-security-group.id]
     subnets          = [aws_subnet.prod-pri-sub.id, aws_subnet.prod-pri-sub2.id]
-    assign_public_ip = true
+    assign_public_ip = false
   }
 
   load_balancer {
@@ -132,7 +113,15 @@ resource "aws_ecs_service" "prod-ecs-service" {
     container_port   = 80
   }
 
-  # depends_on = [aws_lb_listener.prod_alb_listener, aws_iam_role_policy_attachment.ecs_task_execution_role]
+  alarms {
+    enable   = true
+    rollback = true
+    alarm_names = [
+      aws_cloudwatch_metric_alarm.ecs-cpu-util.alarm_name
+    ]
+  }
+
+  depends_on = [aws_lb_listener.prod_alb_listener, aws_iam_role_policy_attachment.ecs_task_execution_role]
 
   tags = {
     Name   = "${var.basic_name}prod-ecs-service"
