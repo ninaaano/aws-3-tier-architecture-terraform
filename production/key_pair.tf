@@ -19,7 +19,7 @@ resource "local_sensitive_file" "ec2-bastion-host-private-key" {
   file_permission = "0600"
 }
 
-# ## AWS SSH Key Pair
+## AWS SSH Key Pair
 resource "aws_key_pair" "ec2-bastion-host-key-pair" {
   key_name   = "${var.basic_name}-prod-ec2-bastion-host-key-pair"
   public_key = file(var.ec2-bastion-public-key-path)
