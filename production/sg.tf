@@ -7,9 +7,17 @@ resource "aws_security_group" "prod-alb-sg" {
 
   ingress {
     description = "http from internet"
-    from_port   = 80
-    to_port     = 80
+    from_port   = var.host_port
+    to_port     = var.host_port
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "allow https"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -92,3 +100,21 @@ resource "aws_security_group" "prod-db-sg" {
   }
 }
 
+resource "aws_security_group" "prod-ecs-tasks" {
+  vpc_id = aws_vpc.prod-vpc.id
+  name = "ecs-tasks-sg"
+
+  ingress {
+    from_port       = var.host_port
+    protocol        = "tcp"
+    to_port         = var.container_port
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port     = 0
+    protocol      = "-1"
+    to_port       = 0
+    cidr_blocks   = ["0.0.0.0/0"]
+  }
+}

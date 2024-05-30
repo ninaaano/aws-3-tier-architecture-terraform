@@ -19,7 +19,7 @@ resource "aws_lb" "prod-alb" {
 
 resource "aws_lb_target_group" "prod-target-group" {
   name        = "prod-tg-name"
-  port        = 80
+  port        = var.host_port
   protocol    = "HTTP"
   vpc_id      = aws_vpc.prod-vpc.id
   target_type = "ip"

@@ -186,3 +186,13 @@ variable "ec2-bastion-public-key-path" {
 variable "ec2-bastion-private-key-path" {
   type = string
 }
+
+variable "container_port" {
+  type = number
+  default = 80
+}
+
+variable "host_port" {
+  type = number
+  default = 80
+}
