@@ -16,12 +16,12 @@ resource "aws_cloudwatch_metric_alarm" "ecs-cpu-util" {
   namespace                 = "AWS/ECS"
   period                    = 120
   statistic                 = "Average"
-  threshold                 = 80
+  threshold                 = 60
   alarm_description         = "This metric monitors ECS CPU utilization"
   insufficient_data_actions = []
 
   dimensions = {
-    ClusterName  = "my-ecs-cluster"
-    ServiceName  = "my-ecs-service"
+    ClusterName  = "prod-ecs-cluster"
+    ServiceName  = "prod-ecs-service"
   }
 }

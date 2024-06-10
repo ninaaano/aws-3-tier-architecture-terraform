@@ -50,8 +50,8 @@ resource "aws_ecs_task_definition" "prod-ecs-task-def" {
   family                   = "proddef"
   network_mode             = "awsvpc"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  cpu                      = 1024
-  memory                   = 3072
+  cpu                      = 512
+  memory                   = 1024
   requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
       {
@@ -109,7 +109,7 @@ resource "aws_ecs_service" "prod-ecs-service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.prod-target-group.arn
-    container_name   = aws_ecs_task_definition.prod-ecs-task-def.family
+    container_name   = aws_ecr_repository.repo.name
     container_port   = 80
   }
 

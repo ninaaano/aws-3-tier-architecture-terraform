@@ -1,5 +1,14 @@
 resource "aws_ecr_repository" "repo" {
-  name = "prod-ecr-repo"
+  name = "prod-app-repo"
+  image_tag_mutability =  "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
+
+resource "aws_ecr_repository" "repo" {
+  name = "prod-web-repo"
   image_tag_mutability =  "MUTABLE"
 
   image_scanning_configuration {
